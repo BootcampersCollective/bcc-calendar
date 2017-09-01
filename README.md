@@ -129,7 +129,8 @@ prompt> $ gulp dist
 ## Built With
 
 * [AngularJS](https://angularjs.org/) - The web framework used
-* [Gulp](https://gulpjs.com/) - Dependency Management
+* [Yarn](https://yarnpkg.com/en/) - Dependency Management
+* [Gulp](https://gulpjs.com/) - Build system
 * [SASS](http://sass-lang.com/) - Used to generate RSS Feeds
 
 ## Contributing
@@ -142,7 +143,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Wesley Song** - *Initial work* - [PurpleBooth](https://github.com/enkhi77)
+* **Wesley Song** - *Initial work* - [enkhi77](https://github.com/enkhi77)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
