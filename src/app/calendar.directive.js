@@ -28,15 +28,7 @@ function calendar() {
 
   function link(scope) {
     // Days in the week.
-    scope.dayNames = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday'
-    ];
+    scope.dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     // Initialize currently selected as the current date.
     scope.selected = moment();
@@ -154,4 +146,4 @@ function buildWeekDays(weekDay, currMonth) {
   return daysInWeek;
 }
 
-angular.module('RowdyMermaid-site.widgets').directive('calendar', calendar);
+angular.module('bcc-calendar').directive('calendar', calendar);
