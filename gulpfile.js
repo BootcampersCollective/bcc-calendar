@@ -74,7 +74,6 @@ gulp.task('dev:vendor', function () {
 						}
 				}))
 				.pipe(concat('vendor.js'))
-				.pipe(uglify())
 				.pipe(gulp.dest('dev/scripts'));
 });
 
