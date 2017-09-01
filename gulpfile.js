@@ -12,7 +12,7 @@ let sass = require('gulp-sass');
 let autoprefixer = require('gulp-autoprefixer');
 let livereload = require('gulp-livereload');
 let jshint = require('gulp-jshint');
-// let angularjs = require('./build/angularjs.build');
+let webserver = require('gulp-webserver');
 
 // File paths
 const CONFIG = {
@@ -27,10 +27,9 @@ const CONFIG = {
 				'src/app/**/*.js'
 		],
 		STYLES: {
-				MAIN: 'src/sass/style.scss',
+				MAIN: 'src/sass/bcc-calendar.scss',
 				PATH: 'src/sass/**/*.scss'
-		},
-		INDEX: 'dev/index.html'
+		}
 };
 
 gulp.task('lint', function () {
@@ -59,7 +58,7 @@ gulp.task('dev:clean', function () {
 		]);
 });
 
-gulp.task('dev:vendorScripts', function () {
+gulp.task('dev:vendor', function () {
 		return gulp.src(CONFIG.VENDOR)
 				.pipe(plumber({
 						errorHandler: function (err) {
@@ -125,23 +124,6 @@ gulp.task('dev:styles', function () {
 				.pipe(livereload());
 });
 
-gulp.task('dev:index', function () {
-		return gulp.src(CONFIG.INDEX)
-				.pipe(plumber({
-						errorHandler: function (err) {
-								notify.onError({
-										title: 'Gulp error in ' + err.plugin,
-										message: err.toString()
-								})(err);
-
-								// play a sound once
-								gutil.beep();
-						}
-				}))
-				.pipe(gulp.dest('dev'))
-				.pipe(livereload());
-});
-
 // Dist tasks
 gulp.task('dist:clean', function () {
 		del.sync([
@@ -196,11 +178,11 @@ gulp.task('dist:styles', function () {
 gulp.task('default', [
 		'dev:clean',
 		'lint',
-		'dev:vendorScripts',
+		'dev:vendor',
 		'dev:scripts',
 		'dev:styles',
-		'dev:index',
-		'serve'
+		'serve',
+		'watch'
 ], function () {
 		console.log('---Starting Default task---');
 });
@@ -214,12 +196,19 @@ gulp.task('dist', [
 ]);
 
 // TODO: use livereload simple server
-// Watch
+// Webserver
 gulp.task('serve', function () {
+		gulp.src('dev')
+				.pipe(webserver({
+						livereload: true,
+						open: true
+				}));
+});
+
+// Watch
+gulp.task('watch', function () {
 		console.log('---Starting Watch task---');
-// 	require('./index.js');
 		livereload.listen();
-		gulp.watch(CONFIG.INDEX, ['dev:index']);
 		gulp.watch(CONFIG.SCRIPTS, ['lint']);
 		gulp.watch(CONFIG.SCRIPTS, ['dev:scripts']);
 		gulp.watch(CONFIG.STYLES.PATH, ['dev:styles']);
