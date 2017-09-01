@@ -1,0 +1,25 @@
+{
+  "name": "bcc-calendar",
+  "version": "1.0.0",
+  "description": "AngularJS module for Bootcampers Collective Calendar directive",
+  "main": "index.js",
+  "repository": "https://github.com/BootcampersCollective/bcc-calendar.git",
+  "author": "Wesley Song <wes.song@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "del": "^3.0.0",
+    "eslint": "^4.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-babel": "^7.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-notify": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8"
+  }
+}
