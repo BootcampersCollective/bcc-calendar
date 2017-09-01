@@ -1,6 +1,6 @@
 # Project Title
 
-One Paragraph of project description goes here
+BCC Calendar AngularJS module.  This package is to create a calendar that can be used in Bootcampers Collective projects.
 
 ## Getting Started
 
@@ -8,59 +8,129 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+You will need to install node (at least v6)
+Mac installation (brew):
+```
+brew install node
+```
+
+PC installation:
+```
 
 ```
-Give examples
+
+You will need to install yarn
+Mac installation (brew):
+```
+brew install yarn
+```
+
+PC installation:
+```
+
+```
+
+You will need to install gulp
+Mac installation (brew):
+```
+yarn add gulp --global
+```
+
+PC installation:
+```
+
 ```
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
+Once everything has been installed, to get your development environment running:
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+First install the prerequisites from yarn.
 
 ```
-until finished
+prompt> $ yarn
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+You should see this returned:
 
 ```
-Give an example
+yarn install v0.27.5
+warning ../../../package.json: No license field
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+Done in 4.35s.
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+run gulp
 
 ```
-Give an example
+prompt> $ gulp
 ```
 
-## Deployment
+You should see this returned:
 
-Add additional notes about how to deploy this on a live system
+```
+[17:10:14] Using gulpfile ~/websites/bcc/bcc-calendar/gulpfile.js
+[17:10:14] Starting 'dev:clean'...
+[17:10:14] Finished 'dev:clean' after 4.44 ms
+[17:10:14] Starting 'lint'...
+[17:10:14] Starting 'dev:vendor'...
+[17:10:14] Starting 'dev:scripts'...
+[17:10:14] Starting 'dev:styles'...
+[17:10:14] Starting 'serve'...
+[17:10:14] Webserver started at http://localhost:8000
+[17:10:14] Finished 'serve' after 10 ms
+[17:10:14] Starting 'watch'...
+---Starting Watch task---
+[17:10:14] Finished 'watch' after 20 ms
+[17:10:14] Finished 'lint' after 553 ms
+[17:10:14] /Users/wsong/websites/bcc/bcc-calendar/dev/scripts/bcc-calendar.min.js reloaded.
+[17:10:14] Finished 'dev:scripts' after 546 ms
+[17:10:14] /Users/wsong/websites/bcc/bcc-calendar/dev/styles/bcc-calendar.css reloaded.
+[17:10:14] Finished 'dev:styles' after 549 ms
+[17:10:19] Finished 'dev:vendor' after 5.17 s
+[17:10:19] Starting 'default'...
+---Starting Default task---
+[17:10:19] Finished 'default' after 33 μs
+```
+
+That should be it, open up your favorite browser and go to http://localhost:8000 and see if you see the test page.
+
+<!-- ## Running the tests -->
+
+<!-- Explain how to run the automated tests for this system -->
+
+<!-- ### Break down into end to end tests -->
+
+<!-- Explain what these tests test and why -->
+
+<!-- ``` -->
+<!-- Give an example -->
+<!-- ``` -->
+
+<!-- ### And coding style tests -->
+
+<!-- Explain what these tests test and why -->
+
+<!-- ``` -->
+<!-- Give an example -->
+<!-- ``` -->
+
+## Build
+
+If you are building this to publish to a private NPM or as a custom package:
+
+```
+prompt> $ gulp dist
+```
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [AngularJS](https://angularjs.org/) - The web framework used
+* [Gulp](https://gulpjs.com/) - Dependency Management
+* [SASS](http://sass-lang.com/) - Used to generate RSS Feeds
 
 ## Contributing
 
@@ -72,7 +142,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Wesley Song** - *Initial work* - [PurpleBooth](https://github.com/enkhi77)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
@@ -82,6 +152,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* Bootcampers Collective
+* The AngularJS people for building such a useful framework
