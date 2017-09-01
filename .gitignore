@@ -58,3 +58,5 @@ typings/
 .env
 
 .idea
+dev/scripts
+dev/styles

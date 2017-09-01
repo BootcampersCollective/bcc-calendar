@@ -12,7 +12,7 @@ let sass = require('gulp-sass');
 let autoprefixer = require('gulp-autoprefixer');
 let livereload = require('gulp-livereload');
 let jshint = require('gulp-jshint');
-// let angularjs = require('./build/angularjs.build');
+let webserver = require('gulp-webserver');
 
 // File paths
 const CONFIG = {
@@ -27,10 +27,9 @@ const CONFIG = {
 				'src/app/**/*.js'
 		],
 		STYLES: {
-				MAIN: 'src/sass/style.scss',
+				MAIN: 'src/sass/bcc-calendar.scss',
 				PATH: 'src/sass/**/*.scss'
-		},
-		INDEX: 'dev/index.html'
+		}
 };
 
 gulp.task('lint', function () {
@@ -52,7 +51,14 @@ gulp.task('lint', function () {
 // Assets
 
 // Dev tasks
-gulp.task('dev:vendorScripts', function () {
+gulp.task('dev:clean', function () {
+		return del.sync([
+				'dev/scripts/',
+				'dev/styles/'
+		]);
+});
+
+gulp.task('dev:vendor', function () {
 		return gulp.src(CONFIG.VENDOR)
 				.pipe(plumber({
 						errorHandler: function (err) {
@@ -88,7 +94,7 @@ gulp.task('dev:scripts', function () {
 				.pipe(babel({
 						presets: ['es2015']
 				}))
-				.pipe(concat('angular.bundle.js'))
+				.pipe(concat('bcc-calendar.min.js'))
 				.pipe(uglify())
 				.pipe(sourceMaps.write())
 				.pipe(gulp.dest('dev/scripts'))
@@ -118,24 +124,14 @@ gulp.task('dev:styles', function () {
 				.pipe(livereload());
 });
 
-gulp.task('dev:index', function () {
-		return gulp.src(CONFIG.INDEX)
-				.pipe(plumber({
-						errorHandler: function (err) {
-								notify.onError({
-										title: 'Gulp error in ' + err.plugin,
-										message: err.toString()
-								})(err);
-
-								// play a sound once
-								gutil.beep();
-						}
-				}))
-				.pipe(gulp.dest('dev'))
-				.pipe(livereload());
+// Dist tasks
+gulp.task('dist:clean', function () {
+		del.sync([
+				'dist/css/',
+				'dist/js/'
+		]);
 });
 
-// Dist tasks
 gulp.task('dist:scripts', function () {
 		return gulp.src(CONFIG.SCRIPTS)
 				.pipe(plumber({
@@ -150,15 +146,12 @@ gulp.task('dist:scripts', function () {
 						}
 				}))
 				.pipe(ngAnnotate())
-				.pipe(sourceMaps.init())
 				.pipe(babel({
 						presets: ['es2015']
 				}))
-				.pipe(concat('angular.bundle.js'))
+				.pipe(concat('bcc-calendar.min.js'))
 				.pipe(uglify())
-				.pipe(sourceMaps.write())
-				.pipe(gulp.dest('dist/js'))
-				.pipe(livereload());
+				.pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('dist:styles', function () {
@@ -174,25 +167,22 @@ gulp.task('dist:styles', function () {
 								gutil.beep();
 						}
 				}))
-				.pipe(sourceMaps.init())
 				.pipe(autoprefixer())
 				.pipe(sass({
 						outputStyle: 'compressed'
 				}))
-				.pipe(sourceMaps.write())
-				.pipe(gulp.dest('dist/css'))
-				.pipe(livereload());
+				.pipe(gulp.dest('dist/css'));
 });
 
 // Default (build dev, serve)
 gulp.task('default', [
 		'dev:clean',
 		'lint',
-		'dev:vendorScripts',
+		'dev:vendor',
 		'dev:scripts',
 		'dev:styles',
-		'dev:index',
-		'serve'
+		'serve',
+		'watch'
 ], function () {
 		console.log('---Starting Default task---');
 });
@@ -201,16 +191,25 @@ gulp.task('default', [
 gulp.task('dist', [
 		'dist:clean',
 		'lint',
-		''
+		'dist:scripts',
+		'dist:styles'
 ]);
 
-// Watch
+// TODO: use livereload simple server
+// Webserver
 gulp.task('serve', function () {
+		gulp.src('dev')
+				.pipe(webserver({
+						livereload: true,
+						open: true
+				}));
+});
+
+// Watch
+gulp.task('watch', function () {
 		console.log('---Starting Watch task---');
-// 	require('./index.js');
 		livereload.listen();
-		gulp.watch(CONFIG.INDEX, ['angularIndex']);
 		gulp.watch(CONFIG.SCRIPTS, ['lint']);
-		gulp.watch(CONFIG.SCRIPTS, ['angularScripts']);
-		gulp.watch(CONFIG.STYLES.PATH, ['angularStyles']);
+		gulp.watch(CONFIG.SCRIPTS, ['dev:scripts']);
+		gulp.watch(CONFIG.STYLES.PATH, ['dev:styles']);
 });
