@@ -15,6 +15,7 @@ let jshint = require('gulp-jshint');
 let webserver = require('gulp-webserver');
 
 // File paths
+const PKG_NAME = 'bcc-calendar';
 const CONFIG = {
 		VENDOR: [
 				'node_modules/angular/angular.js',
@@ -27,7 +28,7 @@ const CONFIG = {
 				'src/app/**/*.js'
 		],
 		STYLES: {
-				MAIN: 'src/sass/bcc-calendar.scss',
+				MAIN: 'src/sass/' + PKG_NAME + '.scss',
 				PATH: 'src/sass/**/*.scss'
 		}
 };
@@ -94,7 +95,7 @@ gulp.task('dev:scripts', function () {
 				.pipe(babel({
 						presets: ['es2015']
 				}))
-				.pipe(concat('bcc-calendar.min.js'))
+				.pipe(concat(PKG_NAME + '.min.js'))
 				.pipe(uglify())
 				.pipe(sourceMaps.write())
 				.pipe(gulp.dest('dev/scripts'))
