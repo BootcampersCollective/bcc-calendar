@@ -8,8 +8,10 @@ const bccCalendarDay = {
     ctrl.$onInit = function () {};
   },
   template: `
-    <span class="cal-day" ng-class="{is-today: $ctrl.day.isToday}">
-      <div>{{$ctrl.day.day}}</div>
+    <span class="cal-day">
+      <div ng-class="{'inactive-month': !$ctrl.day.isCurrentMonth, 'is-today': $ctrl.day.isToday}">
+          {{$ctrl.day.day}}
+      </div>
     </span>
   `
 };

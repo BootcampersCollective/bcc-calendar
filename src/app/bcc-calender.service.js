@@ -25,8 +25,8 @@ function bccCalendarService() {
         daysInWeek.push({
           dayName: week.format('dddd'),
           day: week.date(),
-          isCurrentMonth: week.month() === current.month(),
-          isToday: week.isSame(current, 'day'),
+          isCurrentMonth: week.month() === momentObj.month(),
+          isToday: week.isSame(momentObj, 'day'),
           date: moment(week)
         });
         week.add(1, 'd');
@@ -35,6 +35,7 @@ function bccCalendarService() {
       weeksInMonth.push(daysInWeek);
       current.add(1, 'w');
     } while (current.month() === momentObj.month());
+    // console.log(weeksInMonth);
     return weeksInMonth;
   }
 }
