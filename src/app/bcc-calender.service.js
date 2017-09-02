@@ -12,29 +12,29 @@ function bccCalendarService() {
   function buildMonth(momentObj) {
     let weeksInMonth = [];
 
-    let monthIndex = momentObj.month();
-    let currentMonth = momentObj.clone().date(1).day(0);
+    let current = momentObj
+      .clone()
+      .date(1)
+      .day(0);
 
-    let week = currentMonth.clone();
-    while (currentMonth.month() <= monthIndex) {
+    let week = current.clone();
+
+    do {
       let daysInWeek = [];
-
       for (let i = 0; i < 7; ++i) {
         daysInWeek.push({
           dayName: week.format('dddd'),
           day: week.date(),
-          isCurrentMonth: week.month() === currentMonth.month(),
-          isToday: week.isSame(currentMonth, 'day'),
+          isCurrentMonth: week.month() === current.month(),
+          isToday: week.isSame(current, 'day'),
           date: moment(week)
         });
         week.add(1, 'd');
       }
 
       weeksInMonth.push(daysInWeek);
-      currentMonth.add(1, 'w');
-    }
-
-    console.log(weeksInMonth);
+      current.add(1, 'w');
+    } while (current.month() === momentObj.month());
     return weeksInMonth;
   }
 }
