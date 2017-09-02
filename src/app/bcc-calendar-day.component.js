@@ -1,13 +1,16 @@
 const bccCalendarDay = {
-  bindings: {
-    day: '<'
-  },
-  controller: /*@ngInject*/ function () {
-    let ctrl = this;
-  },
-  template: `
-    <div>
-      {{ day.dayName }} {{ day.day }}
+		bindings: {
+				day: '<'
+		},
+		controller: /*@ngInject*/ function () {
+				let ctrl = this;
+
+				ctrl.$onInit = function () {};
+		},
+		template: `
+    <div class="cal-day">
+      <div>{{ $ctrl.day.dayName }} - {{ $ctrl.day.dayNum }}</div>
+      <div>{{$ctrl.day.long}}</div>
     </div>
   `
 };

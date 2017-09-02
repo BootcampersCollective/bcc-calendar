@@ -25,13 +25,31 @@
   }
 
   #cal-day-header {
+    display: flex;
     border: 2px solid black;
     background-color: red;
-    justify-content: space-between;
+    justify-content: space-around;
 
     .day-name {
       color: white;
       float: left;
+    }
+  }
+
+  .cal-week {
+    display: flex;
+    height: 150px;
+    width: 100%;
+    justify-content: space-around;
+
+    .day-container {
+      padding: 0 10px;
+      max-width: 11%;
+      display: inline-block;
+
+      .cal-day {
+        height: 150px;
+      }
     }
   }
 
