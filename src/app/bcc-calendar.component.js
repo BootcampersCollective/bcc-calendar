@@ -6,8 +6,13 @@ const bccCalendar = {
     // Days in the week.
     ctrl.dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    // Initialize currently selected as the current date.
-    ctrl.selected = moment();
+    ctrl.select = select;
+    ctrl.nextMonth = nextMonth;
+    ctrl.prevMonth = prevMonth;
+
+    ctrl.$onInit = function () {
+      ctrl.selected = moment();
+    };
 
     // This is used as the month/year display for the calendar title. Needs to
     // be cloned so when a date is selected that is not in the current month
@@ -33,12 +38,12 @@ const bccCalendar = {
     _buildMonth(ctrl, begDate, ctrl.selected);
 
     // Sets 'selected' to the date for the day that is clicked on.
-    ctrl.select = day => {
+    function select(day) {
       ctrl.selected = day.date;
-    };
+    }
 
     // Moves to the next month and builds the calendar for that month.
-    ctrl.nextMonth = () => {
+    function nextMonth() {
       let nMonth = ctrl.titleMonth.clone();
 
       _buildMonth(
@@ -49,10 +54,10 @@ const bccCalendar = {
           .day(0),
         ctrl.titleMonth.month(ctrl.titleMonth.month() + 1)
       );
-    };
+    }
 
     // Moves to the previous month and builds the calendar for that month.
-    ctrl.prevMonth = () => {
+    function prevMonth() {
       let pMonth = ctrl.titleMonth.clone();
 
       _buildMonth(
@@ -63,7 +68,7 @@ const bccCalendar = {
           .day(0),
         ctrl.titleMonth.month(ctrl.titleMonth.month() - 1)
       );
-    };
+    }
 
     function _buildMonth(ctrl, begMonth, currMonth) {
       // Array of objects where each object represents a week in the month
