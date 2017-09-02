@@ -2,7 +2,6 @@ function bccCalendarService() {
   const service = {
     getToday: getToday,
     buildMonth: buildMonth
-    // buildWeekday: buildWeekday
   };
   return service;
 
@@ -10,30 +9,37 @@ function bccCalendarService() {
     return moment();
   }
 
-  function buildMonth(month) {
-    let x = moment(month).daysInMonth();
+  function buildMonth(momentObj) {
+    let weeksInMonth = [];
+
+    let monthIndex = momentObj.month();
+    let currentMonth = momentObj
+      .clone()
+      .date(1)
+      .day(0);
+
+    let week = currentMonth.clone();
+    while (currentMonth.month() <= monthIndex) {
+      let daysInWeek = [];
+
+      for (let i = 0; i < 7; ++i) {
+        daysInWeek.push({
+          dayName: week.format('dd').substring(0, 2),
+          day: week.date(),
+          isCurrentMonth: week.month() === currentMonth.month(),
+          isToday: week.isSame(currentMonth, 'day'),
+          date: moment(week)
+        });
+        week.add(1, 'd');
+      }
+
+      weeksInMonth.push(daysInWeek);
+      currentMonth.add(1, 'w');
+    }
+
+    console.log(weeksInMonth);
+    return weeksInMonth;
   }
-
-  //   function buildWeekday(day) {
-  //     const NUM_DAYS_IN_WEEK = 7;
-
-  //     let daysInWeek = [];
-  //     for (let i = 0; i < NUM_DAYS_IN_WEEK; ++i) {
-  //       // Pushes an object to the array where each day contains information
-  //       // needed for the calendar day.
-  //       daysInWeek.push({
-  //         dayName: weekDay.format('dd').substring(0, 2),
-  //         day: weekDay.date(),
-  //         isCurrentMonth: weekDay.month() === currMonth.month(),
-  //         isToday: weekDay.isSame(currMonth, 'day'),
-  //         date: moment(weekDay)
-  //       });
-  //       // Move to the next day in the week.
-  //       weekDay.add(1, 'd');
-  //     }
-  //     // Return the array of days to the calling routine.
-  //     return daysInWeek;
-  //   }
 }
 
 angular.module('bcc-calendar').factory('bccCalendarService', bccCalendarService);
