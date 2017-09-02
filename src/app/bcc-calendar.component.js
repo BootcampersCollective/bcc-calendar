@@ -5,88 +5,55 @@ const bccCalendar = {
 
     // Days in the week.
     ctrl.dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    ctrl.selected = null;
 
     ctrl.select = select;
     ctrl.nextMonth = nextMonth;
     ctrl.prevMonth = prevMonth;
 
     ctrl.$onInit = function () {
-      ctrl.selected = bccCalendarService.getToday();
+      ctrl.today = bccCalendarService.getToday();
+      ctrl.titleMonth = ctrl.today.format('MMMM YYYY');
     };
 
-    // This is used as the month/year display for the calendar title. Needs to
-    // be cloned so when a date is selected that is not in the current month
-    // (e.g., if a month starts mid-week, the previous days in the week will be
-    // filled with the last days of the previous month), the calendar title
-    // month does not change.
-    ctrl.titleMonth = ctrl.selected.clone();
-
-    // Since moment calls change the value of the moment object by reference,
-    // need to copy to a local variable before manipulating the object. After
-    // copied, set to first day of the month, and then to the first day of the
-    // week. For example, if the first day of the month was on a Tuesday, the
-    // first day of the week would be the previous Sunday with a month date
-    // landing in the previous month.
-    let begDate = ctrl.selected
-      .clone()
-      .date(1)
-      .day(0);
-
-    // Builds the dates for each week for the current month. Needs to take the
-    // scope so that the array of weeks can be attached to the scope which is
-    // passed by reference.
-    _buildMonth(ctrl, begDate, ctrl.selected);
-
-    // Sets 'selected' to the date for the day that is clicked on.
     function select(day) {
       ctrl.selected = day.date;
     }
 
-    // Moves to the next month and builds the calendar for that month.
     function nextMonth() {
-      let nMonth = ctrl.titleMonth.clone();
+      let nMonth = null;
+      if(ctrl.selected) {
+        nMonth = ctrl.selected.month();
+      } else {
+        nMonth = ctrl.today.month();
+      }
 
-      _buildMonth(
-        ctrl,
-        nMonth
-          .month(nMonth.month() + 1)
-          .date(1)
-          .day(0),
-        ctrl.titleMonth.month(ctrl.titleMonth.month() + 1)
-      );
+      ctrl.weeks = bccCalendarService.buildMonth(nMonth);
     }
 
-    // Moves to the previous month and builds the calendar for that month.
     function prevMonth() {
-      let pMonth = ctrl.titleMonth.clone();
+      let pMonth = null;
+      if(ctrl.selected) {
+        pMonth = ctrl.selected.month();
+      } else {
+        pMonth = ctrl.today.month();
+      }
 
-      _buildMonth(
-        ctrl,
-        pMonth
-          .month(pMonth.month() - 1)
-          .date(1)
-          .day(0),
-        ctrl.titleMonth.month(ctrl.titleMonth.month() - 1)
-      );
+      ctrl.weeks = bccCalendarService.buildMonth(pMonth);
     }
 
   template: `
       <div id="cal-container">
         <div id="cal-header">
           <button class="fa fa-angle-left" ng-click="prevMonth()"></button>
-          <div>{{ titleMonth.format("MMMM YYYY") }}</div>
+          <div>{{ titleMonth }}</div>
           <button class="fa fa-angle-right" ng-click="nextMonth()"></button>
         </div>
-        <div id="cal-weekDays">
+        <div id="cal-day-header">
           <div class="day-name" ng-repeat="day in dayNames">{{ day }}</div>
         </div>
-        <div>
-          <div class="day-container" ng-repeat='week in weeksInMonth'>
-            <div class="day" ng-click="select(day)" ng-repeat="day in week.daysInWeek"
-                ng-class='{"is-today": day.isToday, "inactive-month": !day.isCurrentMonth, selected: day.date.isSame(selected) }'>
-              {{ day.dayName }} {{ day.day }}
-            </div>
-          </div>
+        <div class="cal-week" ng-repeat="week in $ctrl.weeks">
+          <bcc-calendar-week week="week"></bcc-calendar-week>
         </div>
       </div>
     `
