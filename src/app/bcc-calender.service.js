@@ -13,10 +13,7 @@ function bccCalendarService() {
     let weeksInMonth = [];
 
     let monthIndex = momentObj.month();
-    let currentMonth = momentObj
-      .clone()
-      .date(1)
-      .day(0);
+    let currentMonth = momentObj.clone().date(1).day(0);
 
     let week = currentMonth.clone();
     while (currentMonth.month() <= monthIndex) {
@@ -24,7 +21,7 @@ function bccCalendarService() {
 
       for (let i = 0; i < 7; ++i) {
         daysInWeek.push({
-          dayName: week.format('dd').substring(0, 2),
+          dayName: week.format('dddd'),
           day: week.date(),
           isCurrentMonth: week.month() === currentMonth.month(),
           isToday: week.isSame(currentMonth, 'day'),

@@ -8,10 +8,9 @@ const bccCalendarDay = {
 				ctrl.$onInit = function () {};
 		},
 		template: `
-    <div class="cal-day">
-      <div>{{ $ctrl.day.dayName }} - {{ $ctrl.day.dayNum }}</div>
-      <div>{{$ctrl.day.long}}</div>
-    </div>
+    <span class="cal-day">
+      <div>{{$ctrl.day.day}}</div>
+    </span>
   `
 };
 

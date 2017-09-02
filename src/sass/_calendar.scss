@@ -37,18 +37,20 @@
   }
 
   .cal-week {
-    display: flex;
     height: 150px;
     width: 100%;
-    justify-content: space-around;
+    .week-container {
+      display:flex;
+      flex-direction: row;
+      justify-content: flex-start;
 
-    .day-container {
-      padding: 0 10px;
-      max-width: 11%;
-      display: inline-block;
-
-      .cal-day {
+      .day-container {
+        width: 14.285714%;
         height: 150px;
+        border: 1px solid black;
+        .cal-day {
+          height: 150px;
+        }
       }
     }
   }

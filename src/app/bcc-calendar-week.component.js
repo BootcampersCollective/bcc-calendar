@@ -5,10 +5,11 @@ const bccCalendarWeek = {
   controller: /*@ngInject*/ function () {
     let ctrl = this;
   },
-  template: `
+  template: `<div class="week-container">
     <div class="day-container" ng-repeat="day in $ctrl.week">
       <bcc-calendar-day day="day"></bcc-calendar-day>
     </div>
+</div>
   `
 };
 
