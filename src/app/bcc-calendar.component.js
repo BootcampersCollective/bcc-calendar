@@ -1,6 +1,6 @@
 const bccCalendar = {
   bindings: {},
-  controller: /*@ngInject*/ function () {
+  controller: /*@ngInject*/ function (bccCalendarService) {
     let ctrl = this;
 
     // Days in the week.
@@ -11,7 +11,7 @@ const bccCalendar = {
     ctrl.prevMonth = prevMonth;
 
     ctrl.$onInit = function () {
-      ctrl.selected = moment();
+      ctrl.selected = bccCalendarService.getToday();
     };
 
     // This is used as the month/year display for the calendar title. Needs to
