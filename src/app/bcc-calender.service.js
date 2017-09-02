@@ -26,7 +26,7 @@ function bccCalendarService() {
           dayName: week.format('dddd'),
           day: week.date(),
           isCurrentMonth: week.month() === momentObj.month(),
-          isToday: week.isSame(momentObj, 'day'),
+          isToday: week.isSame(getToday(), 'day'),
           date: moment(week)
         });
         week.add(1, 'd');
