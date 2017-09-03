@@ -1,8 +1,7 @@
 function bccCalendarService() {
   const service = {
     getToday: getToday,
-    buildMonth: buildMonth,
-    setMonth: setMonth
+    buildMonth: buildMonth
   };
   return service;
 
@@ -38,16 +37,6 @@ function bccCalendarService() {
     } while (current.month() === momentObj.month());
     // console.log(weeksInMonth);
     return weeksInMonth;
-  }
-
-  function setMonth(action, momentObj) {
-    switch (action) {
-      case 'prev':
-        return momentObj.subtract(1, 'M');
-      case 'next':
-        return momentObj.add(1, 'M');
-    }
-    return getToday();
   }
 }
 

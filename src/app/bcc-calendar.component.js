@@ -17,7 +17,16 @@ const bccCalendar = {
     }
 
     function setMonth(action) {
-      ctrl.current = bccCalendarService.setMonth(action, ctrl.current);
+      switch (action) {
+        case 'prev':
+          ctrl.current.subtract(1, 'M');
+          break;
+        case 'next':
+          ctrl.current.add(1, 'M');
+          break;
+        default:
+          ctrl.current = bccCalendarService.getToday();
+      }
       ctrl.weeks = bccCalendarService.buildMonth(ctrl.current);
       ctrl.titleMonth = ctrl.current.format('MMMM YYYY');
     }
@@ -28,7 +37,7 @@ const bccCalendar = {
     </div>
     <div class="nav-row">
         <button class="fa fa-angle-left" ng-click="$ctrl.setMonth('prev')"></button>
-        <button ng-click="$ctrl.setMonth(null)">Today</button>
+        <button ng-click="$ctrl.setMonth()">Today</button>
         <button class="fa fa-angle-right" ng-click="$ctrl.setMonth('next')"></button>
     </div>
     <div id="cal-day-header">
