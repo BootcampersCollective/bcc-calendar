@@ -9,9 +9,9 @@ const bccCalendarDay = {
   },
   template: `
     <span class="cal-day">
-      <div ng-class="{'inactive-month': !$ctrl.day.isCurrentMonth, 'is-today': $ctrl.day.isToday}">
+      <div>
           {{$ctrl.day.day}}
-      </div>
+      </divdiv>
     </span>
   `
 };

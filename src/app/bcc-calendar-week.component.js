@@ -1,12 +1,11 @@
 const bccCalendarWeek = {
-		bindings: {
-				week: '<'
-		},
-		controller: /*@ngInject*/ function () {
-				let ctrl = this;
-
-		},
-		template: `<div class="week-container">
+  bindings: {
+    week: '<'
+  },
+  controller: /*@ngInject*/ function () {
+    let ctrl = this;
+  },
+  template: `<div class="week-container">
     <div class="day-container"
          ng-class="{'is-today': day.isToday}"
          ng-repeat="day in $ctrl.week">
