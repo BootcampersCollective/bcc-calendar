@@ -21,7 +21,8 @@ const CONFIG = {
 				'node_modules/angular/angular.js',
 				'node_modules/angular-animate/angular-animate.js',
 				'node_modules/angular-aria/angular-aria.js',
-				'node_modules/angular-sanitize/angular-sanitize.js'
+				'node_modules/angular-sanitize/angular-sanitize.js',
+				'node_modules/moment/moment.js'
 		],
 		SCRIPTS: [
 				'src/app/**/*.module.js',
@@ -73,7 +74,6 @@ gulp.task('dev:vendor', function () {
 						}
 				}))
 				.pipe(concat('vendor.js'))
-				.pipe(uglify())
 				.pipe(gulp.dest('dev/scripts'));
 });
 

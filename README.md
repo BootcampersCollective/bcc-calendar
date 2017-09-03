@@ -2,6 +2,42 @@
 
 BCC Calendar AngularJS module.  This package is to create a calendar that can be used in Bootcampers Collective projects.
 
+## Using in your application
+
+To use the bcc-calendar component in your application begin by installing it into your package.json using either NPM or Yarn.
+
+```
+prompt> $ npm install bcc-calendar -save
+```
+
+```
+prompt> $ yarn add bcc-calendar --save
+```
+
+You will also need to install moment.js using the same method as above.
+
+```
+prompt> $ npm install moment -save
+```
+
+```
+prompt> $ yarn add moment --save
+```
+
+In your angular module define the bcc-calendar as a dependency.
+
+```
+angular.module('app', ['bcc-calendar'])
+```
+
+To invoke the component, use it in your HTML as follows.
+
+```
+<div>
+    <bcc-calendar data="{{$ctrl.data}}"></bcc-calendar>
+</div>
+```
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
