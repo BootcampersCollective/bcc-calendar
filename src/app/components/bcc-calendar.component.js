@@ -1,6 +1,6 @@
 const bccCalendar = {
   bindings: {},
-  controller: /*@ngInject*/ function (bccCalendarService) {
+  controller: /*@ngInject*/ function (bccCalendarService, bccEventsService) {
     let ctrl = this;
     ctrl.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     ctrl.view = true;
@@ -11,6 +11,7 @@ const bccCalendar = {
     ctrl.switchView = switchView;
 
     ctrl.$onInit = function () {
+      ctrl.events = bccEventsService.getData();
       goToday();
     };
 
@@ -47,7 +48,7 @@ const bccCalendar = {
         <div class="day-name" ng-repeat="day in $ctrl.dayNames">{{ day }}</div>
     </div>
     <div class="cal-week" ng-repeat="week in $ctrl.weeks">
-        <bcc-calendar-week week="week" view="$ctrl.view"></bcc-calendar-week>
+        <bcc-calendar-week week="week" events="$ctrl.events" view="$ctrl.view"></bcc-calendar-week>
     </div>
 </div>
     `
