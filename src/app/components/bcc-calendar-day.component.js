@@ -10,7 +10,7 @@ const bccCalendarDay = {
   },
   template: `
     <span class="cal-day">
-      <div>
+      <div></div>
           {{$ctrl.day.day}}
           <bcc-calendar-events day="$ctrl.day.date" events="$ctrl.events"></bcc-calendar-events>
       </div>

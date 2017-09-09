@@ -14,8 +14,19 @@ function bccEventsService() {
     );
   }
 
+  // This is mock data. The idea is that this data will be passed in
+  // to the calendar component from an outside source.
   function getData() {
-    let data = [
+    return [
+      {
+        description: 'Doesn’t this piece make you want to set sail?',
+        end_time: '2017-09-16T20:00:00-0600',
+        name: 'Painting Class: Sailboat by Monet',
+        place: {
+          name: 'A place'
+        },
+        start_time: '2017-09-16T17:30:00-0600'
+      },
       {
         description: 'Doesn’t this piece make you want to set sail?',
         end_time: '2017-09-16T20:00:00-0600',
@@ -161,7 +172,6 @@ function bccEventsService() {
         start_time: '2016-12-16T19:00:00-0700'
       }
     ];
-    return data;
   }
 }
 

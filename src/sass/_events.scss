@@ -1,8 +1,16 @@
 .bcc-events {
-  margin: 0 auto;
+  ul {
+    background-color: #d9d9f3;
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+  }
 
   li {
-    margin: 0 auto;
+    font-size: x-small;
     list-style-type: none;
+    padding: 5px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }

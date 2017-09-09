@@ -1,5 +1,7 @@
 const bccCalendar = {
-  bindings: {},
+  bindings: {
+    events: '<'
+  },
   controller: /*@ngInject*/ function (bccCalendarService, bccEventsService) {
     let ctrl = this;
     ctrl.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -11,6 +13,7 @@ const bccCalendar = {
     ctrl.switchView = switchView;
 
     ctrl.$onInit = function () {
+      // Get mock data. Data will eventually be passed in via an outside source.
       ctrl.events = bccEventsService.getData();
       goToday();
     };

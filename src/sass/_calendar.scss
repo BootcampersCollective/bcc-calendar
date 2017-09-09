@@ -58,13 +58,13 @@
 
         .cal-day {
           height: 150px;
-
-          .inactive-month {
-            color: $gray;
-          }
         }
       }
     }
+  }
+
+  .inactive-month {
+    color: $gray;
   }
 
   .is-today {
