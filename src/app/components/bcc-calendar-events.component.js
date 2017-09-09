@@ -9,8 +9,8 @@ const bccCalendarEvents = {
 
     ctrl.$onInit = function () {};
 
-    function isToday(day, eventDate) {
-      return bccEventsService.isToday(day, eventDate);
+    function isToday(dayDate, eventDate) {
+      return bccEventsService.isEventToday(dayDate, eventDate);
     }
   },
   template: `

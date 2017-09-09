@@ -1,17 +1,12 @@
 function bccEventsService() {
   const service = {
     getData: getData,
-    isToday: isToday
+    isEventToday: isEventToday
   };
   return service;
 
-  function isToday(dayDate, eventDate) {
-    eventDate = moment(eventDate);
-    return (
-      dayDate.year() === eventDate.year() &&
-      dayDate.month() === eventDate.month() &&
-      dayDate.date() === eventDate.date()
-    );
+  function isEventToday(dayDate, eventDate) {
+    return dayDate.isSame(moment(eventDate), 'day');
   }
 
   // This is mock data. The idea is that this data will be passed in
