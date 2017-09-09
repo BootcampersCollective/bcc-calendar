@@ -6,7 +6,7 @@ function bccEventsService() {
   return service;
 
   function isEventToday(dayDate, eventDate) {
-    return dayDate.isSame(moment(eventDate), 'day');
+    return dayDate.isSame(eventDate, 'day');
   }
 
   // This is mock data. The idea is that this data will be passed in

@@ -5,18 +5,27 @@ const bccCalendarEvents = {
   },
   controller: /*@ngInject*/ function (bccEventsService) {
     let ctrl = this;
-    ctrl.isToday = isToday;
+    ctrl.isEventToday = isEventToday;
+    ctrl.makeMoment = makeMoment;
 
     ctrl.$onInit = function () {};
 
-    function isToday(dayDate, eventDate) {
+    function isEventToday(dayDate, eventDate) {
       return bccEventsService.isEventToday(dayDate, eventDate);
+    }
+
+    function makeMoment(event) {
+      return moment(event);
     }
   },
   template: `
     <div class="bcc-events">
       <ul>
-        <li ng-repeat="event in $ctrl.events" ng-if="$ctrl.isToday($ctrl.day, event.start_time)">{{ event.name }}</li>
+        <li
+          ng-repeat="event in $ctrl.events"
+          ng-if="$ctrl.isEventToday($ctrl.day, $ctrl.makeMoment(event.start_time))">
+            {{$ctrl.makeMoment(event.start_time).format('LT')}} - {{ event.name }}
+        </li>
       </ul>
     </div>
   `
