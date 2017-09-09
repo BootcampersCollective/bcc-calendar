@@ -1,7 +1,6 @@
 const bccCalendarDay = {
   bindings: {
-    day: '<',
-    events: '<'
+    day: '<'
   },
   controller: /*@ngInject*/ function () {
     let ctrl = this;
@@ -10,9 +9,9 @@ const bccCalendarDay = {
   },
   template: `
     <span class="cal-day">
-      <div></div>
+      <div>
           {{$ctrl.day.day}}
-          <bcc-calendar-events day="$ctrl.day.date" events="$ctrl.events"></bcc-calendar-events>
+          <bcc-calendar-events events="$ctrl.day.events"></bcc-calendar-events>
       </div>
     </span>
   `

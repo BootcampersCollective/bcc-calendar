@@ -1,13 +1,8 @@
 function bccEventsService() {
   const service = {
-    getData: getData,
-    isEventToday: isEventToday
+    getData: getData
   };
   return service;
-
-  function isEventToday(dayDate, eventDate) {
-    return dayDate.isSame(eventDate, 'day');
-  }
 
   // This is mock data. The idea is that this data will be passed in
   // to the calendar component from an outside source.

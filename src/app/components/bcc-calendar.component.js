@@ -24,17 +24,17 @@ const bccCalendar = {
 
     function goToday() {
       ctrl.current = bccCalendarService.getToday();
-      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current);
+      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current, ctrl.events);
       ctrl.titleMonth = ctrl.current.format('MMMM YYYY');
     }
 
     function nextMonth() {
-      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current.add(1, 'M'));
+      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current.add(1, 'M'), ctrl.events);
       ctrl.titleMonth = ctrl.current.format('MMMM YYYY');
     }
 
     function prevMonth() {
-      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current.subtract(1, 'M'));
+      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current.subtract(1, 'M'), ctrl.events);
       ctrl.titleMonth = ctrl.current.format('MMMM YYYY');
     }
   },
@@ -51,7 +51,7 @@ const bccCalendar = {
         <div class="day-name" ng-repeat="day in $ctrl.dayNames">{{ day }}</div>
     </div>
     <div class="cal-week" ng-repeat="week in $ctrl.weeks">
-        <bcc-calendar-week week="week" events="$ctrl.events" view="$ctrl.view"></bcc-calendar-week>
+        <bcc-calendar-week week="week" view="$ctrl.view"></bcc-calendar-week>
     </div>
 </div>
     `
