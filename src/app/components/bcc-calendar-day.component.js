@@ -11,7 +11,8 @@ const bccCalendarDay = {
     <span class="cal-day">
       <div>
           {{$ctrl.day.day}}
-      </divdiv>
+          <bcc-calendar-events events="$ctrl.day.events"></bcc-calendar-events>
+      </div>
     </span>
   `
 };

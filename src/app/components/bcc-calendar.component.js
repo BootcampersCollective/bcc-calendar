@@ -1,6 +1,8 @@
 const bccCalendar = {
-  bindings: {},
-  controller: /*@ngInject*/ function (bccCalendarService) {
+  bindings: {
+    events: '<'
+  },
+  controller: /*@ngInject*/ function (bccCalendarService, bccEventsService) {
     let ctrl = this;
     ctrl.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     ctrl.view = true;
@@ -11,6 +13,8 @@ const bccCalendar = {
     ctrl.switchView = switchView;
 
     ctrl.$onInit = function () {
+      // Get mock data. Data will eventually be passed in via an outside source.
+      ctrl.events = bccEventsService.getData();
       goToday();
     };
 
@@ -20,17 +24,17 @@ const bccCalendar = {
 
     function goToday() {
       ctrl.current = bccCalendarService.getToday();
-      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current);
+      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current, ctrl.events);
       ctrl.titleMonth = ctrl.current.format('MMMM YYYY');
     }
 
     function nextMonth() {
-      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current.add(1, 'M'));
+      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current.add(1, 'M'), ctrl.events);
       ctrl.titleMonth = ctrl.current.format('MMMM YYYY');
     }
 
     function prevMonth() {
-      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current.subtract(1, 'M'));
+      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current.subtract(1, 'M'), ctrl.events);
       ctrl.titleMonth = ctrl.current.format('MMMM YYYY');
     }
   },

@@ -4,11 +4,13 @@ const bccCalendarWeek = {
   },
   controller: /*@ngInject*/ function () {
     let ctrl = this;
+
+    ctrl.$onInit = function () {};
   },
   template: `<div class="week-container">
     <div class="day-container"
-         ng-class="{'is-today': day.isToday}"
-         ng-repeat="day in $ctrl.week">
+         ng-repeat="day in $ctrl.week"
+         ng-class="{'is-today': day.isToday, 'inactive-month': !day.isCurrentMonth}">
       <bcc-calendar-day day="day"></bcc-calendar-day>
     </div>
 </div>

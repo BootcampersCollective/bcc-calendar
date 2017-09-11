@@ -9,7 +9,7 @@ function bccCalendarService() {
     return moment();
   }
 
-  function buildMonth(momentObj) {
+  function buildMonth(momentObj, eventsList) {
     let weeksInMonth = [];
 
     let current = momentObj
@@ -27,15 +27,27 @@ function bccCalendarService() {
           day: week.date(),
           isCurrentMonth: week.month() === momentObj.month(),
           isToday: week.isSame(getToday(), 'day'),
-          date: moment(week)
+          date: moment(week),
+          events: []
         });
+
+        // Look through events and store corresponding event in correct day.
+        for (let j = 0; j < eventsList.length; ++j) {
+          eventsList[j].start_time = moment(eventsList[j].start_time);
+          eventsList[j].end_time = moment(eventsList[j].end_time);
+
+          if (eventsList[j].start_time.isSame(daysInWeek[i].date, 'day')) {
+            daysInWeek[i].events.push(eventsList[j]);
+          }
+        }
+
         week.add(1, 'd');
       }
 
       weeksInMonth.push(daysInWeek);
       current.add(1, 'w');
     } while (current.month() === momentObj.month());
-    // console.log(weeksInMonth);
+
     return weeksInMonth;
   }
 }
