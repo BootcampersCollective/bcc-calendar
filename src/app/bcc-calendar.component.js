@@ -5,32 +5,29 @@ const bccCalendar = {
     ctrl.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     ctrl.view = true;
 
-    ctrl.nextMonth = nextMonth;
-    ctrl.goToday = goToday;
-    ctrl.prevMonth = prevMonth;
     ctrl.switchView = switchView;
+    ctrl.setMonth = setMonth;
 
     ctrl.$onInit = function () {
-      goToday();
+      setMonth(null);
     };
 
     function switchView() {
       ctrl.view = !ctrl.view;
     }
 
-    function goToday() {
-      ctrl.current = bccCalendarService.getToday();
+    function setMonth(action) {
+      switch (action) {
+        case 'prev':
+          ctrl.current.subtract(1, 'M');
+          break;
+        case 'next':
+          ctrl.current.add(1, 'M');
+          break;
+        default:
+          ctrl.current = bccCalendarService.getToday();
+      }
       ctrl.weeks = bccCalendarService.buildMonth(ctrl.current);
-      ctrl.titleMonth = ctrl.current.format('MMMM YYYY');
-    }
-
-    function nextMonth() {
-      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current.add(1, 'M'));
-      ctrl.titleMonth = ctrl.current.format('MMMM YYYY');
-    }
-
-    function prevMonth() {
-      ctrl.weeks = bccCalendarService.buildMonth(ctrl.current.subtract(1, 'M'));
       ctrl.titleMonth = ctrl.current.format('MMMM YYYY');
     }
   },
@@ -39,9 +36,9 @@ const bccCalendar = {
         <div>{{ $ctrl.titleMonth }}</div>
     </div>
     <div class="nav-row">
-        <button class="fa fa-angle-left" ng-click="$ctrl.prevMonth()"></button>
-        <button ng-click="$ctrl.goToday()">Today</button>
-        <button class="fa fa-angle-right" ng-click="$ctrl.nextMonth()"></button>
+        <button class="fa fa-angle-left" ng-click="$ctrl.setMonth('prev')"></button>
+        <button ng-click="$ctrl.setMonth()">Today</button>
+        <button class="fa fa-angle-right" ng-click="$ctrl.setMonth('next')"></button>
     </div>
     <div id="cal-day-header">
         <div class="day-name" ng-repeat="day in $ctrl.dayNames">{{ day }}</div>
